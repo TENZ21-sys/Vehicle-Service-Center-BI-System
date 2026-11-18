@@ -1,0 +1,13 @@
+sku,name,category,costPrice,sellingPrice,openingStock,unit,reorderLevel,location
+OIL-SYN-5W30,Mobil 1 Synthetic Engine Oil 5W-30 (4L),Fluids & Lubricants,11500.00,14500.00,35,Bottle,10,Rack A-01
+OIL-MIN-15W40,Castrol GTX Diesel 15W-40 (5L),Fluids & Lubricants,9200.00,11800.00,24,Can,8,Rack A-02
+FLT-OIL-TOY01,Toyota Genuine Oil Filter (90915-YZZE1),Filters,1800.00,2600.00,50,Piece,15,Shelf B-01
+FLT-OIL-HON02,Honda Genuine Oil Filter (15400-RTA-003),Filters,2100.00,2900.00,40,Piece,10,Shelf B-02
+FLT-AIR-AXIO,Toyota Axio Engine Air Filter,Filters,2800.00,3900.00,25,Piece,8,Shelf B-04
+BRK-PAD-FRT01,Akebono Front Ceramic Brake Pads (Corolla),Brakes,7500.00,10500.00,18,Set,5,Rack C-01
+BRK-PAD-VEZ02,Brembo Front Brake Pad Set (Vezel/Fit),Brakes,8800.00,12200.00,14,Set,4,Rack C-02
+BRK-FLD-DOT4,Bosch DOT 4 Brake Fluid (500ml),Fluids & Lubricants,1200.00,1750.00,45,Bottle,12,Rack A-04
+SPK-IRID-NGK,NGK Laser Iridium Spark Plug (ILKAR7B11),Ignition,3200.00,4500.00,60,Piece,20,Shelf D-01
+BAT-AMR-65B24L,Amaron Hi-Life Pro Battery 45Ah,Batteries & Electrical,24500.00,29500.00,8,Unit,3,Bay Floor E-01
+CLT-COOL-5050,Toyota Super Long Life Coolant Premix (4L),Fluids & Lubricants,5800.00,7500.00,30,Can,10,Rack A-05
+WPR-BLD-26,Bosch Clear Advantage Wiper Blade 26-inch,Accessories,2200.00,3200.00,20,Piece,6,Shelf F-02

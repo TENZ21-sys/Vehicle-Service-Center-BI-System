@@ -1,0 +1,9 @@
+expenseDate,category,amount,paymentMethod,paidTo,referenceNo,notes
+2026-11-01,Workshop Rent & Utilities,125000.00,Bank Transfer,Colombo Land Holdings,RENT-NOV-2026,Monthly workshop bay and service reception rent
+2026-11-02,Electricity & Water,48500.00,Bank Transfer,Ceylon Electricity Board,CEB-998822,Three-phase compressor and lift electricity bill
+2026-11-04,Tools & Equipment Maintenance,18200.00,Cash,Lanka Hydraulic Services,HYD-MNT-12,Hydraulic 2-post lift seal renewal and lubrication
+2026-11-06,Staff Refreshments & Welfare,8500.00,Cash,Keells Super,WLF-0144,Technician tea coffee and drinking water supply
+2026-11-08,Workshop Consumables,14200.00,Cash,Kelani Hardware Traders,CSM-552,Cotton waste degreaser spray and sanding paper
+2026-11-10,Internet & Telephone,9500.00,Debit Card,Dialog Broadband Networks,DBN-3344,Fiber broadband connection and landline phone
+2026-11-12,Safety & Waste Disposal,15000.00,Cash,Eco Green Waste Solutions,EWS-89,Hazardous engine oil drain barrel collection fee
+2026-11-15,Compressor Air Filter Replacement,6500.00,Cash,Pneumatic World Lanka,PWL-43,Workshop main compressor intake filter replacement

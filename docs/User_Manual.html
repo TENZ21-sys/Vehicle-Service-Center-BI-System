@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User & Operator Manual - Vehicle Service Center</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 14mm 18mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.55;
+      font-size: 13.5px;
+      background: #ffffff;
+    }
+    .cover-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      padding: 60px 20px 40px 20px;
+    }
+    .cover-header {
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 24px;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      margin-bottom: 16px;
+    }
+    .cover-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .cover-subtitle {
+      font-size: 16px;
+      color: #64748b;
+      font-weight: 400;
+    }
+    .cover-hero-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      border-radius: 12px;
+      padding: 30px;
+      color: #ffffff;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+      margin: 40px 0;
+    }
+    .cover-hero-box h3 {
+      font-size: 18px;
+      margin-bottom: 14px;
+      color: #93c5fd;
+    }
+    .cover-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      font-size: 12.5px;
+    }
+    .cover-hero-grid div {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid #60a5fa;
+    }
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 20px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 26px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e2e8f0;
+      page-break-after: avoid;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e40af;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+    }
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+      color: #334155;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    .avoid-break {
+      page-break-inside: avoid;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 12px;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    .alert-box {
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 12.5px;
+      page-break-inside: avoid;
+    }
+    .alert-info {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      color: #1e40af;
+    }
+    .alert-warning {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+    }
+    .alert-success {
+      background: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      color: #166534;
+    }
+    .screenshot-card {
+      margin: 14px 0;
+      page-break-inside: avoid;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 6px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .screenshot-card img {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      display: block;
+    }
+    .screenshot-caption {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #64748b;
+      text-align: center;
+      font-style: italic;
+    }
+    .toc {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0 30px 0;
+      page-break-inside: avoid;
+    }
+    .toc h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+    .toc ul {
+      list-style-type: none;
+      margin-left: 0;
+    }
+    .toc li {
+      padding: 3px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .toc-title {
+      font-weight: 500;
+      color: #1e40af;
+    }
+    .toc-dots {
+      color: #cbd5e1;
+    }
+    .step-badge {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      text-align: center;
+      line-height: 22px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <span class="badge-pill">Official User & Operator Documentation</span>
+      <h1 class="cover-title">Vehicle Service Center Management System</h1>
+      <div class="cover-subtitle">Complete Workshop Operations, POS Invoicing, Inventory & Business Intelligence Manual</div>
+    </div>
+
+    <div class="cover-hero-box">
+      <h3>Key System Capabilities</h3>
+      <div class="cover-hero-grid">
+        <div>
+          <strong>100% Offline-First Operations</strong><br>
+          Operates locally on Windows without cloud dependencies. Complete data privacy and instant speed.
+        </div>
+        <div>
+          <strong>Vehicle Registry with Photo Upload</strong><br>
+          Capture photos of vehicles on intake, store automatically inside SQLite, and track service history.
+        </div>
+        <div>
+          <strong>Workshop Kanban & Job Cards</strong><br>
+          Track vehicle repair progression from intake inspection through technician labor and parts allocation.
+        </div>
+        <div>
+          <strong>Executive Business Intelligence</strong><br>
+          Real-time profit & loss, operating expense breakdowns, technician commissions, and dead-stock alerts.
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div>Version: <strong>0.1.0 (Production Release)</strong></div>
+      <div>Designed for: Workshop Managers, Service Advisors, Technicians & Cashiers</div>
+      <div>Application Edition: Windows Desktop Standalone & Installer</div>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h3>User Manual Table of Contents</h3>
+    <ul>
+      <li><span class="toc-title">1. Getting Started: First Launch & Business Selection</span><span class="toc-dots">Chapter 1</span></li>
+      <li><span class="toc-title">2. Staff Authentication & Account Recovery</span><span class="toc-dots">Chapter 2</span></li>
+      <li><span class="toc-title">3. Workshop Executive Dashboard</span><span class="toc-dots">Chapter 3</span></li>
+      <li><span class="toc-title">4. Vehicle Registry & Photo Attachment</span><span class="toc-dots">Chapter 4</span></li>
+      <li><span class="toc-title">5. Customer Directory & Customer Profiles</span><span class="toc-dots">Chapter 5</span></li>
+      <li><span class="toc-title">6. Service Catalogue & Labour Charges</span><span class="toc-dots">Chapter 6</span></li>
+      <li><span class="toc-title">7. Spare Parts Inventory & Stock Movements</span><span class="toc-dots">Chapter 7</span></li>
+      <li><span class="toc-title">8. Workshop Job Cards & Service Workflow</span><span class="toc-dots">Chapter 8</span></li>
+      <li><span class="toc-title">9. Formal Quotations & Estimates</span><span class="toc-dots">Chapter 9</span></li>
+      <li><span class="toc-title">10. Bay Scheduling & Appointments</span><span class="toc-dots">Chapter 10</span></li>
+      <li><span class="toc-title">11. POS Invoicing, Payments & Receipts</span><span class="toc-dots">Chapter 11</span></li>
+      <li><span class="toc-title">12. Cash Drawer Reconciliation & Operating Expenses</span><span class="toc-dots">Chapter 12</span></li>
+      <li><span class="toc-title">13. Business Intelligence (BI) Analytics & Reports</span><span class="toc-dots">Chapter 13</span></li>
+      <li><span class="toc-title">14. System Settings, Security & Disaster Recovery</span><span class="toc-dots">Chapter 14</span></li>
+      <li><span class="toc-title">15. Troubleshooting & Frequently Asked Questions</span><span class="toc-dots">Chapter 15</span></li>
+    </ul>
+  </div>
+
+  <!-- CHAPTER 1 -->
+  <h1>1. Getting Started: First Launch & Business Selection</h1>
+  <p>The system supports multi-tenant isolation, allowing you to manage multiple workshops or garage branches on the same computer with zero risk of mixed records.</p>
+  
+  <p>When launching the application:</p>
+  <ul>
+    <li>If opening for the first time, click <strong>+ Add New Business Account</strong> to create your garage profile, currency symbol, and initial administrator credentials.</li>
+    <li>Select your active business account from the list to load its isolated database.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/01_business_select.png" alt="Business Selection Screen">
+    <div class="screenshot-caption">Figure 1.1: Business Account Selection screen with multi-tenant garage switcher.</div>
+  </div>
+
+  <!-- CHAPTER 2 -->
+  <div class="page-break"></div>
+  <h1>2. Staff Authentication & Account Recovery</h1>
+  <p>Staff members log in using their assigned username and password. The system includes zero-data-loss account recovery safeguards:</p>
+
+  <h2>2.1 Staff Login</h2>
+  <ol>
+    <li>Enter your <strong>Username</strong> and <strong>Password</strong>.</li>
+    <li>Click <strong>Sign In</strong>. The system authenticates against local bcrypt hashes and opens your role-assigned modules.</li>
+  </ol>
+
+  <div class="screenshot-card">
+    <img src="screenshots/02_staff_login.png" alt="Staff Login Screen">
+    <div class="screenshot-caption">Figure 2.1: Staff Login interface connected to active business database.</div>
+  </div>
+
+  <h2>2.2 Self-Service "Forgot Password?" Recovery</h2>
+  <p>If you forget your password, you will never lose access to your account:</p>
+  <ol>
+    <li>Click <strong>Forgot Password?</strong> on the login screen.</li>
+    <li>Enter your <strong>Username</strong>.</li>
+    <li>Answer your 3 configured Security Questions (e.g. <em>"What was the make of your first car?"</em>).</li>
+    <li>Enter your new password and click <strong>Reset Password</strong>. You can sign in immediately!</li>
+  </ol>
+
+  <div class="screenshot-card">
+    <img src="screenshots/03_forgot_password_modal.png" alt="Security Questions Recovery Modal">
+    <div class="screenshot-caption">Figure 2.2: Password recovery modal using encrypted security question verification.</div>
+  </div>
+
+  <!-- CHAPTER 3 -->
+  <div class="page-break"></div>
+  <h1>3. Workshop Executive Dashboard</h1>
+  <p>The Dashboard provides an instant high-level overview upon logging in:</p>
+  <ul>
+    <li><strong>Welcome Banner:</strong> Shows your user role and the active business profile.</li>
+    <li><strong>KPI Metric Cards:</strong> Displays system status, active account statistics, and enforced permission keys.</li>
+    <li><strong>Fast Navigation:</strong> Left-hand sidebar gives one-click access to all active operational modules.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/04_dashboard.png" alt="Workshop Dashboard Overview">
+    <div class="screenshot-caption">Figure 3.1: Executive Workshop Dashboard interface.</div>
+  </div>
+
+  <!-- CHAPTER 4 -->
+  <div class="page-break"></div>
+  <h1>4. Vehicle Registry & Photo Attachment</h1>
+  <p>The Vehicle Registry provides full lifecycle tracking of all customer automobiles, including dynamic category classification, photos, and automated reminders:</p>
+
+  <h2>4.1 Browsing & Searching Vehicles</h2>
+  <ul>
+    <li>Search by license plate number, make, model, owner name, or phone number.</li>
+    <li>Filter by vehicle category (e.g. <em>SUV & Crossover</em>, <em>Sedan</em>, <em>Luxury & European</em>).</li>
+    <li>View vehicle photo thumbnails directly in the table.</li>
+    <li>Click <strong>+ Reminder</strong> to schedule service reminders (Oil Change, Insurance, License Renewal).</li>
+    <li>Click <strong>Edit</strong> to modify details or <strong>Delete</strong> to safely deactivate the vehicle.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/05_vehicle_registry.png" alt="Vehicle Registry Screen">
+    <div class="screenshot-caption">Figure 4.1: Live Vehicle Registry showing vehicle cards, category badges, and quick action buttons.</div>
+  </div>
+
+  <h2>4.2 Registering a Vehicle with Photo Upload</h2>
+  <ol>
+    <li>Click <strong>+ Add Vehicle</strong>.</li>
+    <li>Select the registered <strong>Customer / Owner</strong>.</li>
+    <li>Enter the <strong>License Plate</strong>, <strong>Make</strong>, <strong>Model</strong>, <strong>Year</strong>, and <strong>Category</strong>.</li>
+    <li><strong>Upload Vehicle Photo:</strong> Click <em>Change Photo</em> to upload any image file (PNG, JPG, WEBP). The system automatically downscales and compresses the photo into a fast-loading thumbnail stored safely inside SQLite.</li>
+    <li>Click <strong>Save Vehicle</strong>.</li>
+  </ol>
+
+  <div class="screenshot-card">
+    <img src="screenshots/06_vehicle_modal_photo_upload.png" alt="Vehicle Registration Form with Photo Upload">
+    <div class="screenshot-caption">Figure 4.2: Vehicle Registration modal with live image upload and dynamic attributes.</div>
+  </div>
+
+  <!-- CHAPTER 5 -->
+  <div class="page-break"></div>
+  <h1>5. Customer Directory & Customer Profiles</h1>
+
+  <h2>5.1 Customer Directory</h2>
+  <p>Maintains your complete customer database with phone numbers, emails, national ID numbers (NIC), and physical addresses. Features duplicate detection to prevent redundant customer accounts.</p>
+
+  <div class="screenshot-card">
+    <img src="screenshots/07_customer_directory.png" alt="Customer Directory">
+    <div class="screenshot-caption">Figure 5.1: Customer Directory with real-time search and action controls.</div>
+  </div>
+
+  <h2>5.2 Customer Detail Profile</h2>
+  <p>Clicking any customer opens their complete 360-degree garage profile:</p>
+  <ul>
+    <li><strong>Customer Info:</strong> Primary contact, secondary phone, email, and address.</li>
+    <li><strong>Registered Vehicles:</strong> Cards showing all vehicles owned by this customer with photos.</li>
+    <li><strong>Direct Actions:</strong> Register a new vehicle, edit customer details, or remove obsolete accounts.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/08_customer_detail_profile.png" alt="Customer Detail Profile View">
+    <div class="screenshot-caption">Figure 5.2: Customer Profile view showing registered vehicles and service history.</div>
+  </div>
+
+  <!-- CHAPTER 6 -->
+  <div class="page-break"></div>
+  <h1>6. Service Catalogue & Labour Charges</h1>
+  <p>The Service Catalogue defines workshop operations, standard labor rates, and estimated repair times:</p>
+  <ul>
+    <li><strong>Base Price & Labour Charge:</strong> Set fixed service charges or technician labor fees.</li>
+    <li><strong>Estimated Duration:</strong> Allocates appropriate time slots in bay scheduling.</li>
+    <li><strong>Dynamic Vehicle Category Association:</strong> Customize service fees according to vehicle size.</li>
+    <li>Click <strong>Remove</strong> to cleanly deactivate discontinued services without breaking past invoices.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/09_service_catalogue.png" alt="Service Catalogue Management">
+    <div class="screenshot-caption">Figure 6.1: Service Catalogue showing categories, prices, labor charges, and estimated durations.</div>
+  </div>
+
+  <!-- CHAPTER 7 -->
+  <div class="page-break"></div>
+  <h1>7. Spare Parts Inventory & Stock Control</h1>
+  <p>Manage workshop spare parts with complete stock ledger traceability:</p>
+  <ul>
+    <li><strong>SKU & Location:</strong> Track parts by unique part code and workshop rack/shelf location.</li>
+    <li><strong>Cost Price vs Selling Price:</strong> Automates profit margin calculation across all sales.</li>
+    <li><strong>Dynamic Stock Quantity:</strong> Calculated dynamically from append-only stock movements.</li>
+    <li><strong>Low Stock Warning Badges:</strong> Items falling below their reorder level are highlighted in red (e.g. <code>2 pcs LOW</code>).</li>
+    <li><strong>Stock Adjustments:</strong> Click <em>Adjust</em> to record damages, write-offs, or manual adjustments.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/10_inventory_stock_control.png" alt="Inventory and Stock Control">
+    <div class="screenshot-caption">Figure 7.1: Live Inventory screen showing calculated stock, cost prices, and low-stock alerts.</div>
+  </div>
+
+  <!-- CHAPTER 8 -->
+  <div class="page-break"></div>
+  <h1>8. Workshop Job Cards & Service Workflow</h1>
+  <p>The Job Card is the central document coordinating technician repairs, parts allocation, and vehicle delivery:</p>
+  <ol>
+    <li><strong>Intake:</strong> Record mileage in, fuel gauge reading, customer complaints, and intake checklist.</li>
+    <li><strong>Technician Assignment:</strong> Assign work to certified technicians for commission tracking.</li>
+    <li><strong>Add Services & Parts:</strong> Add catalogue services and allocate spare parts from active stock.</li>
+    <li><strong>Status Progression:</strong> Progress from <em>Open</em> → <em>In Progress</em> → <em>Waiting for Parts</em> → <em>Completed</em>.</li>
+  </ol>
+
+  <div class="screenshot-card">
+    <img src="screenshots/11_workshop_job_cards.png" alt="Workshop Job Cards">
+    <div class="screenshot-caption">Figure 8.1: Workshop Job Cards pipeline tracking vehicle status, assigned technicians, and totals.</div>
+  </div>
+
+  <!-- CHAPTER 9 & 10 -->
+  <div class="page-break"></div>
+  <h1>9. Formal Quotations & Estimates</h1>
+  <p>Generate formal repair estimates for customer approval prior to initiating workshop labor:</p>
+  <ul>
+    <li>Tracks quotation status: <em>Draft</em> → <em>Sent</em> → <em>Approved</em> → <em>Rejected</em>.</li>
+    <li><strong>1-Click Conversion:</strong> When approved, click <em>Convert to Job Card</em> to immediately generate an active workshop job card pre-loaded with all quoted parts and services.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/12_formal_quotations.png" alt="Formal Cost Quotations">
+    <div class="screenshot-caption">Figure 9.1: Formal Quotations register showing validity periods and approval status.</div>
+  </div>
+
+  <h1>10. Bay Scheduling & Appointments</h1>
+  <p>Book service bays in advance to prevent workshop congestion:</p>
+  <ul>
+    <li>Schedule customer appointments by date, time slot, and service bay number.</li>
+    <li>Click <em>Check-in to Job Card</em> upon vehicle arrival to initiate immediate repair intake.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/13_bay_appointments.png" alt="Bay Scheduling & Appointments">
+    <div class="screenshot-caption">Figure 10.1: Service bay booking schedule and appointment tracker.</div>
+  </div>
+
+  <!-- CHAPTER 11 & 12 -->
+  <div class="page-break"></div>
+  <h1>11. POS Invoicing, Payments & Receipts</h1>
+  <p>Process customer billing from completed job cards or direct counter sales:</p>
+  <ul>
+    <li><strong>Multi-Method Payments:</strong> Supports Cash, Credit/Debit Card, Bank Transfer, and Cheques.</li>
+    <li><strong>Dual Print Formats:</strong> Print 80mm thermal receipts or full A4 professional tax invoices.</li>
+    <li><strong>Safe Voiding:</strong> Voided invoices automatically log reverse stock movements, restoring spare parts to inventory.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/14_billing_invoicing.png" alt="Billing and POS Invoicing">
+    <div class="screenshot-caption">Figure 11.1: Billing register showing invoice numbers, customer names, and payment status.</div>
+  </div>
+
+  <h1>12. Cash Drawer & Operating Expenses</h1>
+  <p>Reconcile physical cash and track garage operating expenses:</p>
+  <ul>
+    <li><strong>Cash Drawer:</strong> Open morning shift float, track POS collections, and calculate closing cash variance.</li>
+    <li><strong>Expense Ledger:</strong> Record utilities, equipment maintenance, tools, rent, and municipal fees.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/15_finance_expenses.png" alt="Finance and Operating Expenses">
+    <div class="screenshot-caption">Figure 12.1: Operational expense ledger categorized for financial P&L reporting.</div>
+  </div>
+
+  <!-- CHAPTER 13 -->
+  <div class="page-break"></div>
+  <h1>13. Executive Business Intelligence (BI) Analytics</h1>
+  <p>The BI module provides real-time executive analytics with zero performance lag:</p>
+  <ul>
+    <li><strong>Date Range Filtering:</strong> Quick presets for <em>Today</em>, <em>This Week</em>, <em>This Month</em>, <em>This Quarter</em>, and <em>Custom Range</em>.</li>
+    <li><strong>Profit Margins:</strong> Real-time calculation of Gross Margin and Net Workshop Profit.</li>
+    <li><strong>Technician Productivity:</strong> Tracks jobs completed, labor revenue, and calculated commissions.</li>
+    <li><strong>Dead Stock Alert:</strong> Automatically identifies inventory items with zero movements in the past 60 days.</li>
+    <li><strong>Customer Retention & LTV:</strong> Calculates repeat visit rates and identifies top-spending customers.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/16_bi_analytics_dashboard.png" alt="Executive BI Analytics Dashboard">
+    <div class="screenshot-caption">Figure 13.1: Executive BI Analytics calculating revenue, expenses, net margins, and cost breakdowns.</div>
+  </div>
+
+  <!-- CHAPTER 14 -->
+  <div class="page-break"></div>
+  <h1>14. System Settings, Security & Disaster Recovery</h1>
+  <p>Comprehensive administrative tools to manage users, security, and data integrity:</p>
+  <ul>
+    <li><strong>User Accounts Management:</strong> Create staff users, assign roles, reset passwords, and delete accounts (protected by administrator password verification).</li>
+    <li><strong>Feature Toggles:</strong> Enable or disable modules (e.g. Quotations, Appointments, Finance) to streamline the UI.</li>
+    <li><strong>One-Click Hot Backup:</strong> Creates an instantaneous SQLite backup in <code>data/databases/backups/</code>.</li>
+    <li><strong>Safe Restore:</strong> Automatically takes a pre-restore safety snapshot before restoring any database backup.</li>
+    <li><strong>Database Optimization (VACUUM):</strong> Cleans empty space and repacks database pages for peak speed.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/17_system_settings.png" alt="System Settings & Security Management">
+    <div class="screenshot-caption">Figure 14.1: Administrative Settings screen managing users, backups, and feature toggles.</div>
+  </div>
+
+  <!-- CHAPTER 15 -->
+  <div class="page-break"></div>
+  <h1>15. Troubleshooting & Frequently Asked Questions</h1>
+
+  <div class="alert-box alert-info">
+    <strong>Q: How do I recover an account if a staff member forgot their password?</strong><br>
+    <strong>A:</strong> Click <em>"Forgot Password?"</em> on the staff login screen and answer the 3 security questions to choose a new password. Alternatively, an Administrator can log in and reset the staff member's password in <strong>Settings > User Accounts</strong>.
+  </div>
+
+  <div class="alert-box alert-warning">
+    <strong>Q: How does the system prevent accidental data loss when deleting records?</strong><br>
+    <strong>A:</strong> The system enforces non-destructive soft deletion (<code>is_active = 0</code>). Deleting a customer, vehicle, or service deactivates it from active lists while preserving historical job cards and tax invoices.
+  </div>
+
+  <div class="alert-box alert-success">
+    <strong>Q: How do I back up my garage data to a USB flash drive?</strong><br>
+    <strong>A:</strong> In <strong>Settings > Backups</strong>, click <em>Create Hot Backup</em>. You can also copy the <code>data/</code> folder directly to an external flash drive or cloud sync folder (Google Drive, OneDrive).
+  </div>
+
+  <div class="alert-box alert-info">
+    <strong>Q: Can I use barcode scanners and thermal receipt printers?</strong><br>
+    <strong>A:</strong> Yes! The inventory SKU field supports standard USB barcode scanners, and the POS checkout supports standard 80mm ESC/POS thermal receipt printers as well as full A4 laser printers.
+  </div>
+
+</body>
+</html>

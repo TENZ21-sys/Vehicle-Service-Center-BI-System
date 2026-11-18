@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Developer & Architecture Guide - Vehicle Service Center</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 14mm 18mm 14mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.55;
+      font-size: 13.5px;
+      background: #ffffff;
+    }
+    .cover-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      padding: 60px 20px 40px 20px;
+    }
+    .cover-header {
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 24px;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      margin-bottom: 16px;
+    }
+    .cover-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .cover-subtitle {
+      font-size: 16px;
+      color: #64748b;
+      font-weight: 400;
+    }
+    .cover-hero-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 12px;
+      padding: 30px;
+      color: #ffffff;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+      margin: 40px 0;
+    }
+    .cover-hero-box h3 {
+      font-size: 18px;
+      margin-bottom: 14px;
+      color: #60a5fa;
+    }
+    .cover-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      font-size: 12.5px;
+    }
+    .cover-hero-grid div {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid #3b82f6;
+    }
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 20px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e2e8f0;
+      page-break-after: avoid;
+    }
+    h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+    }
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+      color: #334155;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    .avoid-break {
+      page-break-inside: avoid;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 12px;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 11.5px;
+      background: #f1f5f9;
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 11px;
+      line-height: 1.45;
+      margin: 12px 0;
+      page-break-inside: avoid;
+      border: 1px solid #1e293b;
+    }
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: #f8fafc;
+      border: none;
+    }
+    .alert-box {
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 12.5px;
+      page-break-inside: avoid;
+    }
+    .alert-info {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      color: #1e40af;
+    }
+    .alert-warning {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+    }
+    .alert-success {
+      background: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      color: #166534;
+    }
+    .screenshot-card {
+      margin: 16px 0;
+      page-break-inside: avoid;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .screenshot-card img {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      display: block;
+    }
+    .screenshot-caption {
+      margin-top: 8px;
+      font-size: 11.5px;
+      color: #64748b;
+      text-align: center;
+      font-style: italic;
+    }
+    .toc {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 18px 24px;
+      margin: 20px 0 30px 0;
+      page-break-inside: avoid;
+    }
+    .toc h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #0f172a;
+    }
+    .toc ul {
+      list-style-type: none;
+      margin-left: 0;
+    }
+    .toc li {
+      padding: 4px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+    }
+    .toc-title {
+      font-weight: 500;
+      color: #1e40af;
+    }
+    .toc-dots {
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <span class="badge-pill">Technical Specification & Architecture</span>
+      <h1 class="cover-title">Developer & Codebase Architecture Guide</h1>
+      <div class="cover-subtitle">Vehicle Service Center Management & Executive Business Intelligence System</div>
+    </div>
+
+    <div class="cover-hero-box">
+      <h3>System Engineering Invariants</h3>
+      <div class="cover-hero-grid">
+        <div>
+          <strong>Local-First & Multi-Tenancy</strong><br>
+          Completely isolated SQLite databases per garage branch in WAL mode with zero cloud reliance.
+        </div>
+        <div>
+          <strong>Exact Integer Cents Financials</strong><br>
+          Zero floating-point rounding errors. All transactions and taxes calculated in integer cents.
+        </div>
+        <div>
+          <strong>Dynamic Stock Ledger</strong><br>
+          Stock is dynamically derived from append-only movements. No static on-hand column.
+        </div>
+        <div>
+          <strong>Process-Isolated IPC Security</strong><br>
+          React Chromium frontend strictly sandboxed with context-bridged IPC invoke channels.
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div>Project: <strong>vehicle-service-center</strong> (v0.1.0)</div>
+      <div>Runtime: Electron 33.2 + Node 20 + React 19 + TypeScript 5.6</div>
+      <div>Target Platform: Windows 10/11 x64</div>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ul>
+      <li><span class="toc-title">1. Architecture Overview & Technology Stack</span><span class="toc-dots">Section 1</span></li>
+      <li><span class="toc-title">2. Complete Directory & Folder Structure Map</span><span class="toc-dots">Section 2</span></li>
+      <li><span class="toc-title">3. The 5 Core System Architectural Invariants</span><span class="toc-dots">Section 3</span></li>
+      <li><span class="toc-title">4. Database Schema & Migration Engine (001 - 008)</span><span class="toc-dots">Section 4</span></li>
+      <li><span class="toc-title">5. Inter-Process Communication (IPC) Design & Flow</span><span class="toc-dots">Section 5</span></li>
+      <li><span class="toc-title">6. Developer Recipes: Extending & Modifying Features</span><span class="toc-dots">Section 6</span></li>
+      <li><span class="toc-title">7. Test Suite, Rebuilds, Build & Distribution</span><span class="toc-dots">Section 7</span></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1 -->
+  <h1>1. Architecture Overview & Technology Stack</h1>
+  <p>The system is an offline-capable, local-first Windows desktop application architected specifically for automotive workshops, repair garages, and enterprise vehicle fleets. It enforces strict separation of concerns across a two-process desktop paradigm:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technologies</th>
+        <th>Responsibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Container Shell</strong></td>
+        <td>Electron v33.2.0</td>
+        <td>Window lifecycle, native menus, file system I/O, OS print spooling, and process sandboxing.</td>
+      </tr>
+      <tr>
+        <td><strong>Backend Core</strong></td>
+        <td>Node.js 20 + TypeScript</td>
+        <td>Business logic services, transaction wrappers, bcrypt password hashing, and IPC controllers.</td>
+      </tr>
+      <tr>
+        <td><strong>Database Layer</strong></td>
+        <td>better-sqlite3 v11.7.0</td>
+        <td>High-speed embedded SQLite with Write-Ahead Logging (WAL) and strict foreign key integrity.</td>
+      </tr>
+      <tr>
+        <td><strong>Frontend UI</strong></td>
+        <td>React 19 + TypeScript + Vite</td>
+        <td>Reactive single-page application (SPA), modal managers, Canvas image downscalers, and responsive CSS.</td>
+      </tr>
+      <tr>
+        <td><strong>Validation Engine</strong></td>
+        <td>Zod v3.24.1</td>
+        <td>Runtime schema validation across IPC contracts and user form submissions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="screenshot-card">
+    <img src="screenshots/04_dashboard.png" alt="Workshop Dashboard Overview">
+    <div class="screenshot-caption">Figure 1.1: System Dashboard runtime interface showing active business context and verified security permissions.</div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="page-break"></div>
+  <h1>2. Complete Directory & Folder Structure Map</h1>
+  <p>The repository follows a domain-driven structure cleanly isolating backend, bridge, frontend, and shared contracts:</p>
+
+  <pre><code>bi/
+├── electron-builder.yml            # Packaging configuration for portable .exe and NSIS setup
+├── electron.vite.config.ts         # Vite build configuration for main, preload, and renderer
+├── package.json                    # Script commands, dependencies, and build metadata
+├── tsconfig.json                   # Base TypeScript compiler settings
+│
+├── data/                           # Application runtime databases
+│   ├── master.db                   # Central registry of businesses and database paths
+│   └── databases/                  # Individual business databases (biz_&lt;uuid&gt;.db)
+│       └── backups/                # Hot backups and pre-restore safety snapshots
+│
+├── dist/                           # Production distribution binaries
+│   ├── Vehicle Service Center 0.1.0.exe        # Standalone portable Windows executable
+│   └── Vehicle Service Center Setup 0.1.0.exe  # Windows NSIS Setup installer
+│
+├── docs/                           # Technical documentation and visual user manuals
+│   ├── DEVELOPER_GUIDE.md          # Architecture and codebase modification manual
+│   ├── USER_MANUAL.md              # Full end-user operational guide
+│   └── screenshots/                # Application screen captures for documentation
+│
+└── src/                            # Application Source Code
+    ├── main/                       # Node.js Electron Main Process
+    │   ├── database/               # Database connection and migration runner
+    │   │   ├── connection.ts       # DatabaseManager singleton, WAL mode, foreign keys
+    │   │   ├── master.repo.ts      # Multi-tenant business registry repository
+    │   │   ├── migrator.ts         # Migration runner applying SQL files sequentially
+    │   │   └── migrations/         # Numbered SQL migration files (001 through 008)
+    │   ├── ipc/                    # Typed IPC controllers (Renderer -&gt; Main)
+    │   ├── repositories/           # Direct SQLite Query Layer (better-sqlite3)
+    │   ├── services/               # Business logic, validation & transactions
+    │   └── utils/                  # Backend utilities (crypto, logger, money formatting)
+    │
+    ├── preload/                    # Electron Preload Bridge
+    │   └── index.ts                # contextBridge exposing safe window.api IPC calls
+    │
+    ├── renderer/                   # React Frontend (Chromium UI)
+    │   ├── App.tsx                 # Root layout, navigation router, active tab state
+    │   ├── components/             # Reusable UI widgets (Layout, Auth, Modals)
+    │   ├── modules/                # Domain-specific pages:
+    │   │   ├── appointments/       # Service bay booking schedule
+    │   │   ├── auth/               # Login, forgot password & security questions
+    │   │   ├── bi/                 # Business Intelligence analytics & metrics
+    │   │   ├── billing/            # POS invoicing, payment collection, receipts
+    │   │   ├── catalogue/          # Services & dynamic vehicle categories
+    │   │   ├── customers/          # Customer directory & customer profiles
+    │   │   ├── finance/            # Cash drawer reconciliation & expense ledger
+    │   │   ├── inventory/          # Spare parts & append-only stock movements
+    │   │   ├── job-cards/          # Workshop Kanban, checklists, technician work
+    │   │   ├── purchases/          # Purchase orders & supplier directory
+    │   │   ├── quotations/         # Formal estimates & 1-click job card converter
+    │   │   ├── settings/           # Feature toggles, user accounts, backups, audit
+    │   │   └── vehicles/           # Vehicle registry & photo upload modal
+    │   └── styles/                 # Global styling, responsive layout, modal styles
+    │
+    └── shared/                     # Universal Types & Contracts (Main + Renderer)
+        ├── constants/              # Permissions list, default sequences, status enums
+        ├── types/                  # TypeScript interfaces for all domain entities & IPC
+        └── validation/             # Zod validation schemas for forms and IPC requests</code></pre>
+
+  <!-- SECTION 3 -->
+  <div class="page-break"></div>
+  <h1>3. The 5 Core System Architectural Invariants</h1>
+  <p>To prevent regressions or data corruption, every developer modifying this repository must uphold these five fundamental principles:</p>
+
+  <div class="alert-box alert-warning">
+    <strong>Invariant 1: Exact Integer Cents Representation</strong><br>
+    All monetary fields (amounts, costs, unit prices, discounts, taxes, totals) are stored and manipulated strictly as integers in the smallest currency unit (cents/paisa).
+    <br><code>$12.50</code> or <code>Rs. 1,250.00</code> is stored as integer <code>125000</code>. Tax rates are stored in basis points (15% = 1500). Raw floating-point arithmetic on currency is strictly prohibited.
+  </div>
+
+  <div class="alert-box alert-info">
+    <strong>Invariant 2: Dynamic Stock Ledger (No Static Column)</strong><br>
+    The table <code>inventory_items</code> never stores a static <code>quantity_on_hand</code> column. Current stock is calculated dynamically using:
+    <pre><code>SELECT item_id, COALESCE(SUM(quantity), 0) as stock 
+FROM stock_movements 
+GROUP BY item_id;</code></pre>
+    All inventory changes are recorded via immutable, append-only rows in <code>stock_movements</code>.
+  </div>
+
+  <div class="alert-box alert-success">
+    <strong>Invariant 3: Non-Destructive Soft Deletions</strong><br>
+    Operational records (Customers, Vehicles, Services, Inventory, Users) are never purged using SQL <code>DELETE</code>. They are soft-deleted via <code>is_active = 0</code>. This guarantees historical job cards, invoices, receipts, and audit logs remain referentially valid forever.
+  </div>
+
+  <div class="alert-box alert-info">
+    <strong>Invariant 4: Multi-Tenant Database Isolation</strong><br>
+    Each registered garage branch maintains its own SQLite database file in <code>data/databases/biz_&lt;id&gt;.db</code>. Global metadata resides in <code>data/master.db</code>. When switching businesses, the active connection is closed and the new database is mounted with WAL mode and foreign key enforcement.
+  </div>
+
+  <div class="alert-box alert-warning">
+    <strong>Invariant 5: Strict IPC Process Isolation</strong><br>
+    The Chromium renderer executes with <code>nodeIntegration: false</code> and <code>contextIsolation: true</code>. Direct filesystem or database imports in React are forbidden. All communication flows through typed IPC channels exposed on <code>window.api</code>.
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="page-break"></div>
+  <h1>4. Database Schema & Migration Engine</h1>
+  <p>The SQLite database evolves through atomic, numbered SQL migrations managed by <code>src/main/database/migrator.ts</code>:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Migration File</th>
+        <th>Domain Responsibility</th>
+        <th>Core Tables Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>001_initial_schema.sql</code></td>
+        <td>Users, Roles, Permissions, Sequences, Settings</td>
+        <td><code>users</code>, <code>roles</code>, <code>permissions</code>, <code>role_permissions</code>, <code>user_roles</code>, <code>settings</code>, <code>sequences</code></td>
+      </tr>
+      <tr>
+        <td><code>002_customers_vehicles.sql</code></td>
+        <td>Customer Directory & Dynamic Vehicle Registry</td>
+        <td><code>customers</code>, <code>vehicle_categories</code>, <code>vehicles</code>, <code>vehicle_reminders</code></td>
+      </tr>
+      <tr>
+        <td><code>003_catalogue_inventory.sql</code></td>
+        <td>Services, Spare Parts, Suppliers, Stock Movements</td>
+        <td><code>services</code>, <code>service_categories</code>, <code>inventory_items</code>, <code>units_of_measure</code>, <code>stock_movements</code>, <code>suppliers</code></td>
+      </tr>
+      <tr>
+        <td><code>004_job_cards.sql</code></td>
+        <td>Workshop Job Cards, Checklists, Labor & Parts</td>
+        <td><code>job_cards</code>, <code>job_card_services</code>, <code>job_card_parts</code></td>
+      </tr>
+      <tr>
+        <td><code>005_invoicing.sql</code></td>
+        <td>Invoices, Items, Payments, Counter POS</td>
+        <td><code>invoices</code>, <code>invoice_items</code>, <code>payments</code></td>
+      </tr>
+      <tr>
+        <td><code>006_appointments_quotations.sql</code></td>
+        <td>Bay Scheduling & Formal Estimates</td>
+        <td><code>appointments</code>, <code>quotations</code>, <code>quotation_items</code></td>
+      </tr>
+      <tr>
+        <td><code>007_expenses_finance.sql</code></td>
+        <td>Operating Expenses & BI Analytics</td>
+        <td><code>expense_categories</code>, <code>expenses</code>, <code>cash_drawer_sessions</code></td>
+      </tr>
+      <tr>
+        <td><code>008_account_recovery.sql</code></td>
+        <td>Security Questions & Zero-Loss Recovery</td>
+        <td>Extends <code>users</code> with <code>security_question</code>, <code>security_answer_hash</code>, <code>recovery_pin_hash</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="screenshot-card">
+    <img src="screenshots/05_vehicle_registry.png" alt="Vehicle Registry Interface">
+    <div class="screenshot-caption">Figure 4.1: Live Vehicle Registry showing dynamic categories, vehicle photos, and service reminder hooks.</div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="page-break"></div>
+  <h1>5. Inter-Process Communication (IPC) Design & Flow</h1>
+  <p>All client-server interaction inside Electron is structured as a unidirectional asynchronous contract:</p>
+
+  <div style="text-align: center; margin: 18px 0; font-family: monospace; font-size: 12px; background: #f8fafc; padding: 14px; border: 1px solid #cbd5e1; border-radius: 8px;">
+    React UI Component<br>
+    ↓ <code>await window.api.vehicles.create(input)</code><br>
+    Preload Bridge (<code>src/preload/index.ts</code>)<br>
+    ↓ <code>ipcRenderer.invoke('vehicles:create', input)</code><br>
+    IPC Controller (<code>src/main/ipc/vehicles.ipc.ts</code>)<br>
+    ↓ Zod Runtime Validation & Auth Check<br>
+    Service Layer (<code>src/main/services/vehicles.service.ts</code>)<br>
+    ↓ Business Logic & Audit Trail Logging<br>
+    Repository Layer (<code>src/main/repositories/vehicles.repo.ts</code>)<br>
+    ↓ Prepared SQLite Statement (<code>better-sqlite3</code>)<br>
+    Business Database (<code>data/databases/biz_&lt;id&gt;.db</code>)
+  </div>
+
+  <div class="screenshot-card">
+    <img src="screenshots/06_vehicle_modal_photo_upload.png" alt="Vehicle Registration Modal with Photo Upload">
+    <div class="screenshot-caption">Figure 5.1: Vehicle Registration modal showing client-side image downscaling and category-specific dynamic fields.</div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="page-break"></div>
+  <h1>6. Developer Recipes: Extending Features</h1>
+
+  <h2>Recipe 6.1: Adding a New Database Migration</h2>
+  <ol>
+    <li>Create <code>src/main/database/migrations/009_your_feature_name.sql</code>.</li>
+    <li>Use idempotent SQLite statements (<code>CREATE TABLE IF NOT EXISTS</code> or <code>ALTER TABLE ... ADD COLUMN ...</code>).</li>
+    <li>On application startup, <code>Migrator.runMigrations()</code> automatically detects and applies it inside an atomic transaction.</li>
+  </ol>
+
+  <h2>Recipe 6.2: Adding a New IPC Channel</h2>
+  <ol>
+    <li><strong>Type Contract:</strong> Declare types in <code>src/shared/types/&lt;domain&gt;.types.ts</code>.</li>
+    <li><strong>Validator:</strong> Create Zod schema in <code>src/shared/validation/&lt;domain&gt;.validation.ts</code>.</li>
+    <li><strong>Repository:</strong> Add prepared SQL queries in <code>src/main/repositories/&lt;domain&gt;.repo.ts</code>.</li>
+    <li><strong>Service:</strong> Implement business logic and audit logging in <code>src/main/services/&lt;domain&gt;.service.ts</code>.</li>
+    <li><strong>IPC Handler:</strong> Register in <code>src/main/ipc/&lt;domain&gt;.ipc.ts</code> via <code>registerIpcHandler()</code>.</li>
+    <li><strong>Preload Bridge:</strong> Expose the method on <code>api.&lt;domain&gt;</code> in <code>src/preload/index.ts</code>.</li>
+  </ol>
+
+  <h2>Recipe 6.3: Client-Side Vehicle Photo Downscaling</h2>
+  <p>Photos are downscaled using an HTML5 canvas before IPC transfer to keep database size optimal and fast:</p>
+  <pre><code>// Downscales images to max 800px at 80% JPEG quality
+const canvas = document.createElement('canvas');
+let { width, height } = img;
+if (width > 800 || height > 800) {
+  if (width > height) {
+    height = Math.round((height * 800) / width);
+    width = 800;
+  } else {
+    width = Math.round((width * 800) / height);
+    height = 800;
+  }
+}
+canvas.width = width;
+canvas.height = height;
+const ctx = canvas.getContext('2d');
+ctx.drawImage(img, 0, 0, width, height);
+const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);</code></pre>
+
+  <div class="screenshot-card">
+    <img src="screenshots/16_bi_analytics_dashboard.png" alt="BI Analytics Dashboard">
+    <div class="screenshot-caption">Figure 6.1: Real-time Executive BI Analytics calculating profit margins, operating expense ratios, and technician commissions.</div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="page-break"></div>
+  <h1>7. Test Suite, Rebuilds, Build & Distribution</h1>
+
+  <h2>Running the Automated Test Suite</h2>
+  <p>The codebase includes 24 Vitest suites covering 105 unit and integration tests executed in the Electron Node runtime:</p>
+  <pre><code># Run complete test suite
+npm test
+
+# Run tests in continuous watch mode
+npm run test:watch</code></pre>
+
+  <h2>Native Module Recompilation (better-sqlite3)</h2>
+  <p>If upgrading Electron or Node.js versions, recompile native SQLite bindings using:</p>
+  <pre><code>npx @electron/rebuild -f -w better-sqlite3</code></pre>
+
+  <h2>Building & Packaging Windows Distribution Binaries</h2>
+  <pre><code># 1. Typecheck and lint
+npm run typecheck
+npm run lint
+
+# 2. Compile Vite production SSR and React bundles
+npm run build
+
+# 3. Package Windows standalone portable executable and NSIS setup installer
+npx electron-builder --win</code></pre>
+
+  <p>Release outputs in <code>dist/</code>:</p>
+  <ul>
+    <li><strong><code>dist/Vehicle Service Center 0.1.0.exe</code></strong> — Zero-install portable standalone application.</li>
+    <li><strong><code>dist/Vehicle Service Center Setup 0.1.0.exe</code></strong> — Standard Windows installer wizard.</li>
+  </ul>
+
+  <div class="screenshot-card">
+    <img src="screenshots/17_system_settings.png" alt="Settings & User Account Management">
+    <div class="screenshot-caption">Figure 7.1: System Settings screen managing granular role permissions, feature toggles, SQLite hot backups, and audit logs.</div>
+  </div>
+
+</body>
+</html>

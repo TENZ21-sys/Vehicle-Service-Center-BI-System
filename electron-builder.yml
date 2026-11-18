@@ -1,0 +1,52 @@
+appId: com.vsc.autocare
+productName: Vehicle Service Center
+copyright: Copyright © 2026
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - out/**/*
+  - node_modules/**/*
+  - package.json
+  - "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}"
+  - "!node_modules/*/{test,__tests__,tests,powertest,example,examples}"
+  - "!node_modules/.bin"
+  - "!**/*.map"
+  - "!src"
+  - "!docs"
+  - "!tests"
+  - "!data"
+
+extraResources:
+  - from: src/main/database/migrations
+    to: migrations
+    filter:
+      - "*.sql"
+
+asar: true
+asarUnpack:
+  - "**/*.node"
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Vehicle Service Center
+  perMachine: false
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
+  installerLanguages:
+    - en_US

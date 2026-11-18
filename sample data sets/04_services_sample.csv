@@ -1,0 +1,10 @@
+code,name,category,basePrice,estimatedDurationMinutes,description
+SRV-FULL-01,Full Periodic Comprehensive Service,Routine Maintenance,12500.00,120,Complete 45-point vehicle inspection fluid change and undercarriage wash
+SRV-OIL-02,Express Engine Oil & Filter Change,Routine Maintenance,3500.00,45,Engine oil draining filter replacement washer seal renewal and safety check
+SRV-BRK-03,Brake System Service & Bleeding (All Wheels),Brake & Suspension,6500.00,90,Caliper pin lubrication disc pad surfacing and hydraulic fluid bleeding
+SRV-ALIGN-04,Computerized 4-Wheel Alignment,Alignment & Tyres,3800.00,45,Precision laser wheel alignment and camber/toe angle calibration
+SRV-BAL-05,Wheel Balancing & Tyre Rotation (4 Wheels),Alignment & Tyres,2800.00,40,Dynamic electronic balancing per tyre and high-wear rotation pattern
+SRV-AC-06,Auto Air Conditioning Deep Clean & Gas Top-up,AC & Climate Control,8500.00,90,Evaporator foam disinfection pollen filter replacement and R134a refrigerant recharge
+SRV-SCAN-07,Full Computerized OBD-II Diagnostics Scan,Diagnostics & Electrical,2500.00,30,ECU fault code scan sensor telemetry live test and health printout
+SRV-TUNE-08,Engine Tune-Up & Throttle Body Cleaning,Engine & Drivetrain,9500.00,120,Injector ultrasonic cleaning throttle body decarb and spark plug test
+SRV-WASH-09,Full Undercarriage Wash & Body Wax,Wash & Detailing,4500.00,60,High-pressure undercarriage mud removal engine bay degrease and hand wax

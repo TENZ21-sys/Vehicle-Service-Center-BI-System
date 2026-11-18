@@ -1,0 +1,15 @@
+node_modules/
+out/
+dist/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.bak
+app.log*
+test-data*/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

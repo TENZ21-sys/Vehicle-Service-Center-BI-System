@@ -1,0 +1,11 @@
+registrationNo,customerPhone,make,model,year,category,fuelType,transmission,color,currentMileage
+CAB-1234,0771234567,Toyota,Corolla Axio,2018,Sedan,Petrol,Automatic,Pearl White,64500
+WP CAH-5678,0719876543,Honda,Vezel Hybrid,2019,SUV,Hybrid,Automatic,Midnight Black,48200
+KU-9988,0765551234,Mitsubishi,Montero Sport,2017,SUV,Diesel,Automatic,Silver Metallic,92100
+CAR-4321,0723334455,Nissan,X-Trail,2016,SUV,Petrol,Automatic,Dark Blue,83400
+WP CAD-7788,0787778899,Suzuki,WagonR Stingray,2020,Hatchback,Hybrid,Automatic,Wine Red,32100
+KV-1122,0751112233,Toyota,Aqua,2015,Hatchback,Hybrid,Automatic,Silver,105400
+WP LH-3344,0112345678,Toyota,HiAce Commuter,2021,Van,Diesel,Manual,White,78500
+WP LH-3355,0112345678,Toyota,HiAce Super GL,2022,Van,Diesel,Automatic,Grey,52000
+WP DA-9012,0117654321,Isuzu,Elf Light Truck,2019,Truck,Diesel,Manual,White,114000
+WP DA-9013,0117654321,Isuzu,Elf Light Truck,2020,Truck,Diesel,Manual,Blue,98200

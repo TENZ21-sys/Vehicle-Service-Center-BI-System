@@ -1,0 +1,220 @@
+================================================================================
+SYSTEM UPGRADE SPECIFICATION PROMPT: ADVANCED AUTOMOTIVE WORKSHOP & BI PLATFORM
+================================================================================
+Target System: Vehicle Service Center Management & Business Intelligence System
+Technology Stack: Electron 33, Node 20, React 19, TypeScript 5.6, better-sqlite3 (WAL), Zod
+Working Directory: c:\Users\Akalanka\Desktop\bi
+Primary Database: Local-First Multi-Tenant SQLite (data/databases/biz_<id>.db)
+
+--------------------------------------------------------------------------------
+ROLE & OBJECTIVE
+--------------------------------------------------------------------------------
+You are an expert Principal Desktop & Full-Stack Systems Engineer tasked with 
+upgrading the existing "Vehicle Service Center" desktop application. You must 
+implement 7 high-impact enterprise features across functional, operational, and 
+analytics layers while strictly adhering to the existing system architecture, 
+coding conventions, and database invariants.
+
+CRITICAL RULE: DO NOT break or refactor existing working modules. All additions 
+must be backward-compatible, non-destructive, and offline-resilient.
+
+--------------------------------------------------------------------------------
+CORE SYSTEM INVARIANTS (MUST PRESERVE AT ALL COSTS)
+--------------------------------------------------------------------------------
+1. EXACT INTEGER CENTS FINANCIAL ENGINE:
+   - All currency values (prices, costs, commissions, taxes, totals) MUST be stored 
+     and calculated as integers in the smallest currency unit (e.g. cents/paisa: 
+     Rs. 1,500.00 = 150000). Never use floating-point numbers for money.
+   - Tax rates and percentage commissions are stored in basis points (1% = 100 bp).
+
+2. DYNAMIC APPEND-ONLY STOCK LEDGER:
+   - Never add a static `quantity_on_hand` column to `inventory_items`. Stock is 
+     always dynamically computed from `stock_movements`.
+
+3. NON-DESTRUCTIVE SOFT DELETES:
+   - Never use SQL `DELETE` on operational data. Always update `is_active = 0`.
+
+4. STRICT IPC PROCESS ISOLATION:
+   - React components NEVER import Node.js or SQLite directly. All backend calls 
+     flow through typed IPC channels exposed on `window.api`.
+
+5. 100% OFFLINE-FIRST CAPABILITY:
+   - If external network services (SMS, cloud sync) are unavailable, the application 
+     MUST gracefully log the failure, continue offline operations, and never freeze.
+
+--------------------------------------------------------------------------------
+DETAILED FEATURE IMPLEMENTATION SPECIFICATIONS
+--------------------------------------------------------------------------------
+
+FEATURE 1: SMS & WHATSAPP GATEWAY INTEGRATION
+---------------------------------------------
+Objective: Enable automatic customer notifications upon key workshop lifecycle events.
+Approach & Architecture:
+- Add a provider-agnostic notification engine in `src/main/services/notification.service.ts` 
+  supporting:
+  a) Generic HTTP SMS Gateway / Local Telco API (configurable URL, API Key, Sender ID)
+  b) Twilio SMS (Account SID, Auth Token, From Number)
+  c) WhatsApp Web Click-to-Chat URI fallback (`https://wa.me/<phone>?text=...`) or Cloud API.
+- Configuration Screen: In Settings > Notifications, allow toggling providers, entering 
+  credentials, and testing message delivery.
+- Event Triggers:
+  1. Job Card Ready: When Job Card status changes to "Completed" or "Ready for Delivery", 
+     trigger: "Dear {customer_name}, your vehicle {plate} ({make} {model}) is ready for 
+     pickup at {business_name}. Total: {total_amount}."
+  2. Service Reminder: Scheduled alert when vehicle reaches reminder mileage or date.
+  3. Digital Invoice Link / Summary: When invoice is finalized, send receipt summary.
+- Offline Safety: When offline or credentials are not configured, queue message in a new 
+  `notification_logs` table with status 'pending_offline' or 'skipped' without throwing errors.
+
+FEATURE 2: INTERACTIVE DIAGRAMMATIC VEHICLE INSPECTION (VISUAL DAMAGE MARKER)
+-----------------------------------------------------------------------------
+Objective: Provide a visual car body inspection tool on the Job Card intake form.
+Approach & Architecture:
+- Component: Create `src/renderer/components/Vehicles/VehicleDamageMarker.tsx`.
+- Visual Asset: Clean vector 2D blueprint SVG displaying 5 views of a standard vehicle:
+  [Top View] [Front View] [Rear View] [Left Side] [Right Side].
+- Interactive Marker Tool:
+  - Service advisor clicks/taps anywhere on the vehicle blueprint.
+  - Places an interactive marker pin with selectable damage types:
+    * Scratch (Red pin)
+    * Dent (Amber pin)
+    * Crack / Break (Blue pin)
+    * Paint Damage (Purple pin)
+  - Optional short text note per pin (e.g., "Deep scratch near fuel cap").
+  - Click on existing pin allows editing note or removing pin.
+- Persistence: Store the marker array as JSON in `job_cards.checklist` or a dedicated 
+  `damage_markers` JSON column:
+  `[{ id, x_percent, y_percent, view: 'left'|'top'|'front'|'rear'|'right', type, note }]`
+- Work Order & Print View: Render the annotated damage map directly on printed A4 Job Cards.
+
+FEATURE 3: MULTI-BAY DRAG-AND-DROP VISUAL GANTT / TIMELINE SCHEDULER
+---------------------------------------------------------------------
+Objective: Transform the Appointments tab into an interactive visual service bay scheduler.
+Approach & Architecture:
+- Component: Create `src/renderer/modules/appointments/BayTimelineScheduler.tsx`.
+- Layout:
+  - Columns represent Service Bays (e.g., Bay 1, Bay 2, Alignment Bay, Inspection Bay, Wash Bay).
+  - Rows represent 30-minute time intervals from 08:00 to 18:00.
+  - Appointments render as colored draggable cards showing:
+    * Time Slot & Estimated Duration
+    * Vehicle Registration Plate & Customer Name
+    * Service Types & Status Badge
+- Interaction:
+  - Use native HTML5 Drag and Drop or lightweight React pointer events.
+  - Dragging an appointment card to a new bay or time slot calls `api.appointments.update()` 
+    to update `scheduled_time`, `bay_number`, and `technician_id`.
+  - Toggle view: Allow switching between "Visual Bay Grid" and "Table View".
+
+FEATURE 4: BARCODE & QR CODE PRINTING AND FAST SCANNING
+-------------------------------------------------------
+Objective: Speed up vehicle check-in, work order retrieval, and inventory part lookups.
+Approach & Architecture:
+- Libraries: Use lightweight zero-dependency generator `qrcode` or SVG Code128 generator.
+- Work Order QR Code:
+  - Add QR Code to the header of the printed Job Card containing JSON:
+    `{"type":"job_card","id":"<job_card_id>","num":"JC-2026-0001"}`
+  - Global USB Scanner Listener: In `src/renderer/App.tsx`, listen for rapid keyboard scanner 
+    input (buffer terminating with Enter). If a Job Card QR is scanned, immediately open that 
+    Job Card detail modal or navigate to it.
+- Inventory Adhesive Labels:
+  - In `InventoryListPage.tsx`, add "Print Label" action per item.
+  - Produces printable label sheet (50mm x 25mm or standard label roll) featuring:
+    * Barcode (Code128 of item SKU)
+    * Part Name & Brand
+    * Selling Price (formatted in currency)
+    * Rack/Shelf Location
+
+FEATURE 5: AUTOMATED SCHEDULED LOCAL & CLOUD BACKUP
+---------------------------------------------------
+Objective: Prevent catastrophic data loss without requiring manual user intervention.
+Approach & Architecture:
+- Backend Service: Create `src/main/services/backup-scheduler.service.ts`.
+- Configuration:
+  - In Settings > Backups, add "Automatic Daily Backup" settings:
+    * Enabled: true/false
+    * Scheduled Time (e.g., "20:00" / 8:00 PM)
+    * Destination Directory: Default `data/databases/backups/`, with folder picker to select 
+      external drive, USB, or cloud sync folder (e.g. OneDrive / Google Drive directory).
+    * Retention Count (keep last N backups, default 14).
+- Execution:
+  - Uses Electron background timer (no shell sleep, no blocking).
+  - Triggers existing non-blocking SQLite hot backup routine.
+  - Automatically zips backup `.sqlite` + metadata `.json` sidecar.
+  - Rotates old snapshots based on retention count.
+  - Emits notification to system tray or audit log on completion.
+
+FEATURE 6: GRANULAR TECHNICIAN COMMISSIONS PER SERVICE
+-------------------------------------------------------
+Objective: Support custom commission incentives per service instead of a flat blanket rate.
+Approach & Architecture:
+- Migration: Update `services` table schema:
+  `ALTER TABLE services ADD COLUMN commission_type TEXT NOT NULL DEFAULT 'default';`
+  (`'default'`, `'fixed_amount'`, `'percentage'`)
+  `ALTER TABLE services ADD COLUMN commission_value INTEGER NOT NULL DEFAULT 0;`
+  (MoneyAmount in integer cents for fixed, or basis points for percentage).
+- UI Update: In Service Catalogue modal, add "Technician Commission" rule selector:
+  - Option 1: "Use Global Default" (applies global workshop commission % from Settings).
+  - Option 2: "Fixed Amount" (e.g., Rs. 500.00 / $5.00 per completed service).
+  - Option 3: "Service Percentage" (e.g., 25.00% of this specific service's labor charge).
+- Analytics Engine Update: In `AnalyticsRepository.getTechnicianProductivityMetrics()`, 
+  calculate commission by joining `job_card_services` with `services` and evaluating the 
+  specific override rule per line item before applying the global fallback.
+
+FEATURE 7: EXECUTIVE BI CHART VISUALIZATIONS (RECHARTS)
+-------------------------------------------------------
+Objective: Elevate the BI dashboard with executive data visualizations.
+Approach & Architecture:
+- Library: Install `recharts` (standard React charting library with clean SVG rendering).
+- New Visualizations in `BiDashboardPage.tsx`:
+  1. Monthly Profit & Loss Trend (Area / Line Chart):
+     - X-axis: Days or Months in range.
+     - Green Area: Gross Revenue.
+     - Red Area: Operating Expenses + Parts Acquisition Cost.
+     - Blue Line: Net Workshop Profit.
+  2. Revenue Breakdown by Service Category (Donut / Pie Chart):
+     - Slices: Periodic Maintenance, Brakes, Engine, Detailing, etc.
+     - Interactive tooltip showing total revenue and % share.
+  3. Technician Productivity Comparison (Horizontal Bar Chart):
+     - Technician names vs. Completed Jobs count and Labor Revenue generated.
+- Styling: Maintain system dark navy / slate palette with crisp tooltips and legend pills.
+
+--------------------------------------------------------------------------------
+DATABASE MIGRATION SPECIFICATION (009_advanced_features.sql)
+--------------------------------------------------------------------------------
+Create `src/main/database/migrations/009_advanced_features.sql`:
+
+```sql
+-- Migration 009: Commission rules, Damage markers, and Notification logs
+ALTER TABLE services ADD COLUMN commission_type TEXT NOT NULL DEFAULT 'default';
+ALTER TABLE services ADD COLUMN commission_value INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE job_cards ADD COLUMN damage_markers TEXT;
+
+CREATE TABLE IF NOT EXISTS notification_logs (
+  id TEXT PRIMARY KEY,
+  channel TEXT NOT NULL, -- 'sms', 'whatsapp'
+  recipient TEXT NOT NULL,
+  message TEXT NOT NULL,
+  status TEXT NOT NULL, -- 'sent', 'failed', 'queued'
+  reference_type TEXT, -- 'job_card', 'invoice', 'reminder'
+  reference_id TEXT,
+  error_message TEXT,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_ref ON notification_logs(reference_type, reference_id);
+CREATE INDEX IF NOT EXISTS idx_notifications_created ON notification_logs(created_at);
+```
+
+--------------------------------------------------------------------------------
+EXECUTION PLAN & VERIFICATION CHECKLIST
+--------------------------------------------------------------------------------
+When executing this prompt:
+1. Apply migration `009_advanced_features.sql` safely using `migrator.ts`.
+2. Implement backend services, IPC channels, and preload methods with strict Zod validation.
+3. Update UI screens adhering to modern clean CSS and component modularity.
+4. Run automated test suite (`npm test`) and ensure all 105 existing tests pass, plus add 
+   unit tests for new commission calculations and damage marker serialization.
+5. Compile bundles via `npm run build` and ensure zero TypeScript or ESLint errors.
+6. Package updated Windows binaries with `npx electron-builder --win` and verify `dist/`.
+================================================================================
